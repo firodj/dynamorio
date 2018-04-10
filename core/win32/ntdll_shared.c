@@ -54,6 +54,7 @@
 #    pragma warning(disable : 4204) // nonstd extension: non-constant aggregate
                                     // initializer
 #    define INVALID_FILE INVALID_HANDLE_VALUE
+#    include <stdio.h> /* _snprintf */
 #    define STATUS_NOT_IMPLEMENTED ((NTSTATUS)0xC0000002L)
 #else
 /* we include globals.h mainly for ASSERT, even though we're

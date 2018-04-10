@@ -48,14 +48,14 @@
 #    include "monitor.h"
 #    include "moduledb.h" /* for the process control defines */
 #    include "disassemble.h"
-
+#    include <string.h>
 #else /* NOT_DYNAMORIO_CORE */
 #    include "configure.h"
 #    include <stdio.h> /* snprintf, sscanf */
 
 #    ifdef WINDOWS
 #        define inline __inline
-#        define snprintf _snprintf
+//#        define snprintf _snprintf
 #        define WIN32_LEAN_AND_MEAN
 #        include <windows.h> /* no longer included in globals_shared.h */
 #    endif
