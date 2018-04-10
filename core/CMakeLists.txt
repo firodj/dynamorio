@@ -309,9 +309,9 @@ endif (WIN32)
 _DR_get_static_libc_list(static_libc_list)
 if (WIN32)
   if (DEBUG)
-    set(WIN32_C_LIB libcmtd)
+    set(WIN32_C_LIB libcmtd libucrtd libvcruntimed)
   else (DEBUG)
-    set(WIN32_C_LIB libcmt)
+    set(WIN32_C_LIB libcmt libucrt libvcruntime)
   endif (DEBUG)
   set(NOLIBC_DLL_ENTRY /entry:DllMain)
 endif ()
@@ -942,7 +942,9 @@ else (UNIX)
   set(pre_link_flags
     # preinjector requires no C library for its unload-self method
     # not bothering with map files
-    "${LD_FLAGS} /dll /incremental:no /base:0x14000000 /NODEFAULTLIB ${NOLIBC_DLL_ENTRY}")
+    # /FORCE:MULTIPLE because we need libucrt for printf stuff, but
+    # there are conflicts with ntdll_imports
+    "${LD_FLAGS} /dll /incremental:no /base:0x14000000 /NODEFAULTLIB /FORCE:MULTIPLE ${NOLIBC_DLL_ENTRY}")
   set_target_properties(${PRELOAD_NAME} PROPERTIES LINK_FLAGS "${pre_link_flags}")
   # case 4125: we link with msvcrt.lib for vc8 /O2's use of _alldvrm
   target_link_libraries(${PRELOAD_NAME} ${static_libc_list} ntdll_imports

@@ -132,6 +132,7 @@ else (UNIX)
     if ("${tgt}" STREQUAL "ldmp")
       _DR_get_static_libc_list(static_libc)
       set(extra_lib ${static_libc} ntdll_imports)
+      set(extra_lflags "/FORCE:MULTIPLE")
     endif ("${tgt}" STREQUAL "ldmp")
     target_link_libraries(${tgt}
       policy_static user32 advapi32 pdh imagehlp shell32 ${extra_lib})
@@ -146,6 +147,8 @@ else (UNIX)
     set_target_properties(${tgt} PROPERTIES
       # Set define parameters for resources.rc
       COMPILE_FLAGS "${tool_cflags} ${unicode_cflags} -DRC_IS_${tgt}")
+    set_target_properties(${tgt} PROPERTIES
+      LINK_FLAGS "${extra_lflags}")
   endforeach (tgt)
 
   # drdeploy.exe links to libutil/drconfiglib.dll.  When we build drdeploy,
