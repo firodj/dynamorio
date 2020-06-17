@@ -870,6 +870,8 @@ else (UNIX)
     set(BASE_CFLAGS "${BASE_CFLAGS} /MT")
   endif ()
   set(WARN "/W4 /WX")
+  # FIXME: Fix these warnings /Wv:18
+  set(WARN "${WARN} /wd4311 /wd4312 /wd4456 /wd4457 /wd4458 /wd4459 /wd4473 /wd4474 /wd4477 /wd4091")
   # Default from cmake has /W3 so remove to avoid warning about overriding
   string(REGEX REPLACE "/W[0-9]" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
   string(REGEX REPLACE "/W[0-9]" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
